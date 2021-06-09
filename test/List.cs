@@ -1,17 +1,17 @@
 ﻿using System;
-namespace hash_table
+namespace test
 {
-    partial class List
+    public class ListHT
     {
         private int size;
         private Node Head;
 
-        public List(int num)
+        public ListHT(NodeforMyList num)
         {
             Head.data = num;
             size = 1;
         }
-        public List()
+        public ListHT()
         {
             Head = null;
             size = 0; 
@@ -20,19 +20,19 @@ namespace hash_table
         public class Node
         {
             public Node pNext;
-            public int data;
-            public Node(int data)
+            public NodeforMyList data;
+            public Node(NodeforMyList data)
             {
                 this.data = data;
                 this.pNext = null;
             }
         }
 
-        public void Add(int key)
+        public void Add(NodeforMyList node)
         {
             
             
-            Node Temp = new Node(key);
+            Node Temp = new Node(node);
 
 
             if (Head == null)
@@ -44,7 +44,7 @@ namespace hash_table
             }
             else
             {
-                if (Head.data >= Temp.data)
+                if (String.Compare(Head.data.login, Temp.data.login) <= 0)
                 {
                     Temp.pNext = Head;
                     Head = Temp;
@@ -54,7 +54,7 @@ namespace hash_table
                 {
                     Node For_search = Head;
 
-                    while (For_search.pNext != null && For_search.pNext.data < Temp.data)
+                    while (For_search.pNext != null && String.Compare(For_search.pNext.data.login, Temp.data.login) < 0)
                     {
                         For_search = For_search.pNext;
                     }
@@ -73,18 +73,18 @@ namespace hash_table
                 }
 
             }
-            Console.WriteLine(key + " element was added");
+            //Console.WriteLine(node.login + " element was added");
         }
 
         public int GetSize() => size;
 
-        public void Remove(int key)
+        public void Remove(NodeforMyList key)
         {
             Node Temp = Head;
             int in_list = 0;
             while (Temp != null && Temp.pNext != null )
             {
-                if (Temp.data == key) in_list++;
+                if (Temp.data.login == key.login && Temp.data.method == key.method) in_list++;
                 Temp = Temp.pNext;
             }
             if (in_list == 0)
@@ -94,7 +94,7 @@ namespace hash_table
             }
             else
             {
-                if (Head.data == key)
+                if (Head.data.login == key.login && Head.data.method == key.method)
                 {
                     Head = Head.pNext;
                     size--;
@@ -103,7 +103,7 @@ namespace hash_table
                 {
                     Temp = Head;
                     Node Curr = Temp;
-                    while (Temp.data < key)
+                    while (!(Temp.data.login == key.login && Temp.data.method == key.method))
                     {
                         Curr = Temp;
                         Temp = Temp.pNext;
@@ -112,17 +112,17 @@ namespace hash_table
                     size--;
 
                 }
-                Console.WriteLine(key + " element was removed");
+                Console.WriteLine(key.login + " element was removed");
             }
         }
 
 
-        public Node Search(int key)
+        public Node Search(NodeforMyList key)
         {
             Node Temp = Head;
             while (Temp != null)
             {
-                if (Temp.data == key) return Temp;
+                if (Temp.data.login == key.login && Temp.data.method == key.method) return Temp;
                 if (Temp.pNext == null) break;
                 Temp = Temp.pNext;
             }
